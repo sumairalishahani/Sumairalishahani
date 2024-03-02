@@ -1,37 +1,52 @@
-name: CI
+# GitHub Action for generating a contribution graph with a snake eating your contributions.
+name: Generate Snake
 
+# Controls when the action will run.
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+  schedule:
+      # every 12 hours
+    - cron: "0 */12 * * *"
 
+  # This command allows us to run the Action automatically from the Actions tab.
+  workflow_dispatch:
+  
+  # Also run on every push on the master branch
+  push:
+    branches:
+    - main
+
+# The sequence of runs in this workflow:
 jobs:
+  # This workflow contains a single job called "build"
   build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout Repository
+      - name: Clone repo
         uses: actions/checkout@v3
+    
+      - name: Generate the snake files in './dist/'
+        uses: Platane/snk@v3
+        id: snake-gif
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-contribution-grid-snake.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Add any steps required for your build, test, etc.
+      - name: Show build status
+        run: git status
 
-      # Add the following steps to deploy your snake animation and stats
-
-      - name: Deploy Snake Animation
-        run: |
-          curl -o snake.svg https://raw.githubusercontent.com/sumairalishahani/sumairalishahani/main/snake.svg
-          git add snake.svg
-          git commit -m "Add snake animation"
-          git push origin main
-
-      - name: Deploy GitHub Stats
-        run: |
-          # Add commands to generate and deploy GitHub stats images
-          # For example, you can use GitHub-readme-stats or similar tools
-          # Make sure to replace "salesp07" with your GitHub username in the URLs
-          curl -o streak-stats.svg https://github-readme-streak-stats-sumairalishahani.vercel.app/?user=sumairalishahani&count_private=true&theme=react&border_radius=10
-          git add streak-stats.svg
-          git commit -m "Add streak stats"
-          git push origin main
+      - name: Push new files to the output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+          commit_message: Update snake animations
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
