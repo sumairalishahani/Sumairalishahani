@@ -1,1 +1,21 @@
-https://github-readme-streak-stats.herokuapp.com/sumairalishahani&theme=dark&hide_border=true&stroke=0000&background=060A0CD0
+<svg width="800" height="200" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(102, 102, 102);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(255, 255, 255);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#grad1)" />
+  <g fill="#0d1117">
+    <rect width="12.5%" height="100%" x="0" y="0" />
+    <rect width="12.5%" height="100%" x="12.5%" y="0" />
+    <rect width="12.5%" height="100%" x="25%" y="0" />
+    <rect width="12.5%" height="100%" x="37.5%" y="0" />
+    <rect width="12.5%" height="100%" x="50%" y="0" />
+    <rect width="12.5%" height="100%" x="62.5%" y="0" />
+    <rect width="12.5%" height="100%" x="75%" y="0" />
+    <rect width="12.5%" height="100%" x="87.5%" y="0" />
+    <!-- Repeat the pattern for a total of 100 times -->
+    <!-- ... -->
+  </g>
+</svg>
